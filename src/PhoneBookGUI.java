@@ -1,39 +1,53 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.net.URL;
 
-import javax.swing.BoxLayout;
+import javax.swing.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.event.EventListenerList;
 
-public class PhoneBookGUI extends JFrame implements ActionListener{
-
+public class PhoneBookGUI extends JFrame{
+	private PhoneBook phoneBook;
 	public static void main(String[]args) {
-//		PhoneBook phoneBook=new PhoneBook();
-//		phoneBook.insert("luk","2","124");
 		new PhoneBookGUI();
 	}
 	public PhoneBookGUI(){
-		URL iconURL = getClass().getResource("/icon.png");
-		ImageIcon icon = new ImageIcon(iconURL);
+		phoneBook=new PhoneBook();
+		
+//		URL iconURL = getClass().getResource("/icon.png");
+		ImageIcon icon = new ImageIcon("icon.png");
+		JLabel pictureLabel=new JLabel();
+		
+		// Menuleiste einbauen:
+        // ...
+		
+		// Einfuegen- und  SuchenLoeschenPanel einbauen:
+		JPanel mainPanel = new JPanel();
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
+        // ...
+        
+        setContentPane(mainPanel);
+		pictureLabel.setIcon(icon);
+		mainPanel.add(pictureLabel);
+        
+		setLayout(new BoxLayout(mainPanel, 1));
+		setTitle("PhoneBook");
 		setIconImage(icon.getImage());
-		JLabel contentpane=new JLabel();
-		contentpane.setIcon(icon);
-		add(contentpane);
-
-		JButton hola=new JButton("hola");
-		hola.addActionListener((ActionEvent e)->{System.out.println("hi ho");});
-		getContentPane().add(new JLabel("heohetiuehtIsabtigb"));
-		getContentPane().add(hola);
-		setLayout(new BoxLayout(getContentPane(), 1));
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		setVisible(true);
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+
+        // mainPanel mit Umrandung versehen und das
+        
+        
+		new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+			}
+		};
 	}
 }

@@ -22,6 +22,7 @@ public class PhoneBookGUI extends JFrame{
 		JPanel mainPanel = new JPanel();
 		PhoneBookMenuBar phoneBookMenuBar=new PhoneBookMenuBar(phoneBook);
 		PhoneBookInserPanel phoneBookInserPanel=new PhoneBookInserPanel(phoneBook);
+		PhoneBookSearchDeletePanel phoneBookSearchDeletePanel=new PhoneBookSearchDeletePanel(phoneBook);
 
         setContentPane(mainPanel);
         
@@ -29,9 +30,11 @@ public class PhoneBookGUI extends JFrame{
         
 		pictureLabel.setIcon(icon);
 		
-//		add(pictureLabel);
+		setJMenuBar(phoneBookMenuBar);
 		add(phoneBookInserPanel);
-		add(phoneBookMenuBar);
+		add(phoneBookSearchDeletePanel);
+		add(pictureLabel);
+
         
 		setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
 		setTitle("PhoneBook");

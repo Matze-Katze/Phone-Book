@@ -10,7 +10,7 @@ public class PhoneBook {
 	
 	boolean insert(String name, String supplement, String telNr) {
 		String uName=getUniqueName(name,supplement);
-		if(phoneBookMap.containsKey(uName))
+		if(phoneBookMap.containsKey(uName)||name==null||supplement==null||telNr==null)
 			return false;
 		phoneBookMap.put(uName,telNr);
 		return true;

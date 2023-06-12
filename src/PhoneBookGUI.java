@@ -10,10 +10,11 @@ import javax.swing.event.EventListenerList;
 
 public class PhoneBookGUI extends JFrame{
 	private PhoneBook phoneBook;
+	private static PhoneBookGUI phoneBookGUI=null;
 	public static void main(String[]args) {
-		new PhoneBookGUI();
+		phoneBookGUI=new PhoneBookGUI();
 	}
-	public PhoneBookGUI(){
+	private PhoneBookGUI(){
 		phoneBook=new PhoneBook();
 		
 //		URL iconURL = getClass().getResource("/icon.png");
@@ -49,5 +50,10 @@ public class PhoneBookGUI extends JFrame{
 				// TODO Auto-generated method stub
 			}
 		};
+	}
+	public static PhoneBookGUI getPhoneBookGui() {
+		if(phoneBookGUI!=null)
+			return phoneBookGUI;
+		else return phoneBookGUI=new PhoneBookGUI();
 	}
 }

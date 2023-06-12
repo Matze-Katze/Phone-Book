@@ -30,8 +30,7 @@ public class PhoneBookInserPanel
         pbInsertTelNr = new JTextField("", 20);
         panel2.add(pbInsertTelNr);
 
-        Border border = BorderFactory.createTitledBorder("Insert");
-        this.setBorder(border);
+        this.setBorder(BorderFactory.createTitledBorder("Insert"));
         this.setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
         this.add(panel1);
         this.add(panel2);
@@ -41,6 +40,15 @@ public class PhoneBookInserPanel
     }
 
     public void actionPerformed(ActionEvent e) {
-        // ...
+    	if(pbInsertName.getText().equals("")) {
+    		pbInsertName.setText("Name Empty pls write a valid Name");
+    		return;
+    	}
+    	if(pbInsertTelNr.getText().equals("")) {
+    		pbInsertTelNr.setText("TelNr Empty pls write a valid Number");
+    		return;
+    	}
+        if(!phoneBook.insert(pbInsertName.getText(), pbInsertSupplement.getText(), pbInsertTelNr.getText()))
+        	pbInsertName.setText("name: \""+pbInsertName.getText()+"\" already exists");
     }
 }

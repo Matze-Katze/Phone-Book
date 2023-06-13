@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AttributeSet.ColorAttribute;
 
@@ -42,9 +43,9 @@ public class PhoneBookMenuBar extends JMenuBar implements ActionListener {
         	File workingDirectory = new File(System.getProperty("user.dir"));
         	chooser.setCurrentDirectory(workingDirectory);
         	chooser.setFileFilter(filter);
-            if(chooser.showOpenDialog(PhoneBookGUI.getPhoneBookGUI())==JFileChooser.APPROVE_OPTION)
+            if(chooser.showOpenDialog(PhoneBookGUI.getInstance())==JFileChooser.APPROVE_OPTION)
             	phoneBook.read(chooser.getSelectedFile());
-            PhoneBookGUI.getPhoneBookGUI().updateOutput();
+            PhoneBookGUI.getInstance().updateOutput();
         }
         if(source==menuItemSave) {
         	JFileChooser chooser = new JFileChooser();
@@ -52,7 +53,7 @@ public class PhoneBookMenuBar extends JMenuBar implements ActionListener {
         	File workingDirectory = new File(System.getProperty("user.dir"));
         	chooser.setCurrentDirectory(workingDirectory);
         	chooser.setFileFilter(filter);
-            if(chooser.showSaveDialog(PhoneBookGUI.getPhoneBookGUI())==JFileChooser.APPROVE_OPTION) {
+            if(chooser.showSaveDialog(PhoneBookGUI.getInstance())==JFileChooser.APPROVE_OPTION) {
             	String chosenFileName=chooser.getSelectedFile().getName();
             	if(chosenFileName.contains(".txt"))
             		phoneBook.save(chooser.getSelectedFile());
@@ -61,7 +62,24 @@ public class PhoneBookMenuBar extends JMenuBar implements ActionListener {
             }
         }
         if(source==menuItemQuit) {
-        	PhoneBookGUI.getPhoneBookGUI().dispatchEvent(new WindowEvent(PhoneBookGUI.getPhoneBookGUI(), WindowEvent.WINDOW_CLOSING));
+        	JDialog quitDialog=new JDialog(PhoneBookGUI.getInstance(),"Quit for Sure?",true);
+        	JPanel panel=new JPanel();
+        	JButton yesButton=new JButton("yes");
+        	JButton noButton=new JButton("no");
+        	yesButton.addActionListener((ActionEvent event)->
+        		PhoneBookGUI.getInstance().dispatchEvent(new WindowEvent(quitDialog, WindowEvent.WINDOW_CLOSING))
+        		);
+        	noButton.addActionListener((ActionEvent event)->
+        		quitDialog.dispatchEvent(new WindowEvent(quitDialog, WindowEvent.WINDOW_CLOSING))
+        			);
+        	panel.add(noButton);
+        	panel.add(yesButton);
+        	panel.setLayout(new GridLayout(1,2,20,20));
+        	panel.setBorder(new EmptyBorder(10,10,10,10));
+        	quitDialog.add(panel);
+        	quitDialog.setLocationRelativeTo(PhoneBookGUI.getInstance());
+        	quitDialog.pack();
+        	quitDialog.setVisible(true);
         }
     }
 }

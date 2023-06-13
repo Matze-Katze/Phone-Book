@@ -54,7 +54,7 @@ public class PhoneBookGUI extends JFrame{
 	public void updateOutput() {
 		phoneBookGUI.phoneBookSearchDeletePanel.updateOutput();
 	}
-	public static PhoneBookGUI getPhoneBookGUI() {
+	public static PhoneBookGUI getInstance() {
 		if(phoneBookGUI!=null)
 			return phoneBookGUI;
 		else return phoneBookGUI=new PhoneBookGUI();

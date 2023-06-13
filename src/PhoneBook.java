@@ -8,24 +8,24 @@ import java.util.logging.Logger;
 public class PhoneBook {
 	NavigableMap<String,String> phoneBookMap = new TreeMap<>();
 	
-	boolean insert(String name, String supplement, String telNr) {
-		String uName=getUniqueName(name,supplement);
-		if(phoneBookMap.containsKey(uName)||name==null||supplement==null||telNr==null)
+	boolean insert(String name, String prefix, String telNr) {
+		String uName=getUniqueName(name,prefix);
+		if(phoneBookMap.containsKey(uName)||name==null||prefix==null||telNr==null)
 			return false;
 		phoneBookMap.put(uName,telNr);
 		return true;
 	}
 	
-	boolean remove(String name, String supplement) {
-		String uName=getUniqueName(name,supplement);
+	boolean remove(String name, String prefix) {
+		String uName=getUniqueName(name,prefix);
 		if(!phoneBookMap.containsKey(uName))
 			return false;
 		phoneBookMap.remove(uName);
 		return true;
 	}
 	
-	String exactSearch(String name, String supplement) {
-		String uName=getUniqueName(name,supplement);
+	String exactSearch(String name, String prefix) {
+		String uName=getUniqueName(name,prefix);
 		return phoneBookMap.get(uName);
 	}
 	
@@ -53,7 +53,7 @@ public class PhoneBook {
             while ((line = in.readLine()) != null) {
                 String[] sf = line.split(" ");
                 if (sf.length == 2) {
-                    insert(sf[0], "", sf[1]); // empty Supplement
+                    insert(sf[0], "", sf[1]); // empty Prefix
                 } else if (sf.length == 3) {
                     insert(sf[0], sf[1], sf[2]);
                 }

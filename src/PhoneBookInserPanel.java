@@ -8,7 +8,7 @@ public class PhoneBookInserPanel
 
     private PhoneBook phoneBook;
     private JTextField pbInsertName;
-    private JTextField pbInsertSupplement;
+    private JTextField pbInsertPrefix;
     private JTextField pbInsertTelNr;
     private JButton buttonInsert;
 
@@ -18,15 +18,15 @@ public class PhoneBookInserPanel
 		JPanel panel1 = new JPanel();
         panel1.setLayout(new GridLayout(3, 1));
 		panel1.add(new JLabel("Name"));
-		panel1.add(new JLabel("Supplement"));
+		panel1.add(new JLabel("Prefix"));
 		panel1.add(new JLabel("TelephoneNr"));
 		
         JPanel panel2 = new JPanel();
         panel2.setLayout(new GridLayout(3, 1)); 
         pbInsertName = new JTextField("", 20);
         panel2.add(pbInsertName);
-        pbInsertSupplement = new JTextField("", 20);
-        panel2.add(pbInsertSupplement);
+        pbInsertPrefix = new JTextField("", 20);
+        panel2.add(pbInsertPrefix);
         pbInsertTelNr = new JTextField("", 20);
         panel2.add(pbInsertTelNr);
 
@@ -40,15 +40,19 @@ public class PhoneBookInserPanel
     }
 
     public void actionPerformed(ActionEvent e) {
-    	if(pbInsertName.getText().equals("")) {
-    		pbInsertName.setText("Name Empty pls write a valid Name");
+    	if(pbInsertName.getText().equals("")||pbInsertName.getText().contains(" ")) {
+    		pbInsertName.setText("Not a valid Name");
     		return;
     	}
-    	if(pbInsertTelNr.getText().equals("")) {
-    		pbInsertTelNr.setText("TelNr Empty pls write a valid Number");
+    	try{
+    		Double.parseDouble(pbInsertTelNr.getText());
+    	}
+    	catch(Exception ex) {
+    		pbInsertTelNr.setText("Not  a valid TelNumber");
     		return;
     	}
-        if(!phoneBook.insert(pbInsertName.getText(), pbInsertSupplement.getText(), pbInsertTelNr.getText()))
+        if(!phoneBook.insert(pbInsertName.getText(), pbInsertPrefix.getText(), pbInsertTelNr.getText()))
         	pbInsertName.setText("name: \""+pbInsertName.getText()+"\" already exists");
+        else PhoneBookGUI.getPhoneBookGUI().getPhoneBookSearchDeletePanel().updateOutput();
     }
 }

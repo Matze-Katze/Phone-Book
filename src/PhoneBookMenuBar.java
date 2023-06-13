@@ -38,19 +38,15 @@ public class PhoneBookMenuBar extends JMenuBar implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         Component source=(Component) e.getSource();
-        if(source==menu)
-        	System.out.println("menu got clicked");
-        System.out.println("something clicked");
         if(source==menuItemLoad) {
         	JFileChooser chooser = new JFileChooser();
         	FileNameExtensionFilter filter = new FileNameExtensionFilter("txt files","txt");
         	File workingDirectory = new File(System.getProperty("user.dir"));
         	chooser.setCurrentDirectory(workingDirectory);
         	chooser.setFileFilter(filter);
-            if(chooser.showOpenDialog(PhoneBookGUI.getPhoneBookGui())==JFileChooser.APPROVE_OPTION) {
+            if(chooser.showOpenDialog(PhoneBookGUI.getPhoneBookGUI())==JFileChooser.APPROVE_OPTION)
             	phoneBook.read(chooser.getSelectedFile());
-            	System.out.println(chooser.getSelectedFile().getAbsolutePath());
-            }
+            PhoneBookGUI.getPhoneBookGUI().getPhoneBookSearchDeletePanel().updateOutput();
         }
         if(source==menuItemSave) {
         	JFileChooser chooser = new JFileChooser();
@@ -58,7 +54,7 @@ public class PhoneBookMenuBar extends JMenuBar implements ActionListener {
         	File workingDirectory = new File(System.getProperty("user.dir"));
         	chooser.setCurrentDirectory(workingDirectory);
         	chooser.setFileFilter(filter);
-            if(chooser.showSaveDialog(PhoneBookGUI.getPhoneBookGui())==JFileChooser.APPROVE_OPTION) {
+            if(chooser.showSaveDialog(PhoneBookGUI.getPhoneBookGUI())==JFileChooser.APPROVE_OPTION) {
             	String chosenFileName=chooser.getSelectedFile().getName();
             	if(chosenFileName.contains(".txt"))
             		phoneBook.save(chooser.getSelectedFile());
@@ -67,7 +63,7 @@ public class PhoneBookMenuBar extends JMenuBar implements ActionListener {
             }
         }
         if(source==menuItemQuit) {
-        	PhoneBookGUI.getPhoneBookGui().dispatchEvent(new WindowEvent(PhoneBookGUI.getPhoneBookGui(), WindowEvent.WINDOW_CLOSING));
+        	PhoneBookGUI.getPhoneBookGUI().dispatchEvent(new WindowEvent(PhoneBookGUI.getPhoneBookGUI(), WindowEvent.WINDOW_CLOSING));
         }
     }
 }

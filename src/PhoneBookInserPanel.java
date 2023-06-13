@@ -53,6 +53,6 @@ public class PhoneBookInserPanel
     	}
         if(!phoneBook.insert(pbInsertName.getText(), pbInsertPrefix.getText(), pbInsertTelNr.getText()))
         	pbInsertName.setText("name: \""+pbInsertName.getText()+"\" already exists");
-        else PhoneBookGUI.getPhoneBookGUI().getPhoneBookSearchDeletePanel().updateOutput();
+        else PhoneBookGUI.getPhoneBookGUI().updateOutput();
     }
 }

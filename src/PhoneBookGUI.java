@@ -17,13 +17,12 @@ public class PhoneBookGUI extends JFrame{
 	PhoneBookSearchDeletePanel phoneBookSearchDeletePanel;
 	public static void main(String[]args) {
 		phoneBookGUI=new PhoneBookGUI();
-		phoneBookGUI.phoneBook.read(new File("TelBuchMit420Namen.txt"));
-		phoneBookGUI.getPhoneBookSearchDeletePanel().updateOutput();
+//		phoneBookGUI.phoneBook.read(new File("PhoneBookWith420Names.txt"));
+//		phoneBookGUI.updateOutput();
 	}
 	private PhoneBookGUI(){
 		phoneBook=new PhoneBook();
 		
-//		URL iconURL = getClass().getResource("/icon.png");
 		ImageIcon icon = new ImageIcon("icon.png");
 //		JLabel pictureLabel=new JLabel();
 //		pictureLabel.setIcon(icon);
@@ -51,25 +50,10 @@ public class PhoneBookGUI extends JFrame{
 		pack();
 		setVisible(true);
 
-		new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-			}
-		};
 	}
-	public PhoneBookMenuBar getPhoneBookMenuBar() {
-		return phoneBookMenuBar;
+	public void updateOutput() {
+		phoneBookGUI.phoneBookSearchDeletePanel.updateOutput();
 	}
-	
-	public PhoneBookInserPanel getPhoneBookInserPanel() {
-		return phoneBookInserPanel;
-	}
-	
-	public PhoneBookSearchDeletePanel getPhoneBookSearchDeletePanel() {
-		return phoneBookSearchDeletePanel;
-	}
-	
 	public static PhoneBookGUI getPhoneBookGUI() {
 		if(phoneBookGUI!=null)
 			return phoneBookGUI;

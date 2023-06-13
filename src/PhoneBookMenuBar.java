@@ -21,7 +21,6 @@ public class PhoneBookMenuBar extends JMenuBar implements ActionListener {
         menuItemQuit.addActionListener(this);
         menuItemSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         menuItemLoad.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-        menuItemQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
        
         add(menu);
         menu.add(menuItemSave);
@@ -33,7 +32,6 @@ public class PhoneBookMenuBar extends JMenuBar implements ActionListener {
 //        setBackground(Color.LIGHT_GRAY);
         setPreferredSize(new Dimension(200, 20));
         setToolTipText("the Person reading this is Dumb");
-        add(new JMenu("menu"));
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -46,7 +44,7 @@ public class PhoneBookMenuBar extends JMenuBar implements ActionListener {
         	chooser.setFileFilter(filter);
             if(chooser.showOpenDialog(PhoneBookGUI.getPhoneBookGUI())==JFileChooser.APPROVE_OPTION)
             	phoneBook.read(chooser.getSelectedFile());
-            PhoneBookGUI.getPhoneBookGUI().getPhoneBookSearchDeletePanel().updateOutput();
+            PhoneBookGUI.getPhoneBookGUI().updateOutput();
         }
         if(source==menuItemSave) {
         	JFileChooser chooser = new JFileChooser();

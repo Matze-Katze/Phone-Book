@@ -12,7 +12,7 @@ public class PhoneBookSearchDeletePanel
 	private PhoneBook phoneBook;
     private JTextField nameSearch;
     private JTextField prefixSearch;
-    private JButton buttonApply;
+    private JButton buttonDelete;
     private JComboBox comboBox;
     private JTextArea outputText;
     private JScrollPane scrollPane;
@@ -51,9 +51,10 @@ public class PhoneBookSearchDeletePanel
         comboBox=new JComboBox(comboString);
         comboBox.addActionListener((ActionEvent e)->updateOutput());
         searchPanel.add(comboBox);
-        buttonApply = new JButton("Apply");
-        searchPanel.add(buttonApply);
-        buttonApply.addActionListener(this);
+        buttonDelete = new JButton("Delete");
+        searchPanel.add(buttonDelete);
+        buttonDelete.addActionListener(this);
+//        buttonDelete.setEnabled(false);
         
         JPanel outputPanel=new JPanel();
         outputText=new JTextArea("",30,60);
@@ -68,29 +69,35 @@ public class PhoneBookSearchDeletePanel
     }
     public void updateOutput() {
     	outputText.setText("");
-    	if(comboBox.getSelectedIndex()==PREFIX_SEARCH) {
-    		if(prefixSearch.getText().length()==0)
-		    	for(String s:phoneBook.prefixSearch(nameSearch.getText()))
+        buttonDelete.setEnabled(false);
+    	switch(comboBox.getSelectedIndex()) {
+    	
+	    	case PREFIX_SEARCH: 
+	    		if(prefixSearch.getText().length()==0)
+			    	for(String s:phoneBook.prefixSearch(nameSearch.getText()))
+			    		outputText.append(s+'\n');
+	    		else for(String s:phoneBook.prefixSearch(nameSearch.getText()+" "+prefixSearch.getText()))
 		    		outputText.append(s+'\n');
-    		else for(String s:phoneBook.prefixSearch(nameSearch.getText()+" "+prefixSearch.getText()))
-	    		outputText.append(s+'\n');
-    		outputText.setForeground(Color.BLACK);
-    	}
-    	if(comboBox.getSelectedIndex()==EXACT_SEARCH) {
-    		outputText.append(phoneBook.exactSearch( nameSearch.getText(), prefixSearch.getText() ));
-    		outputText.setForeground(Color.BLACK);
-    	}
-    	if(comboBox.getSelectedIndex()==DELETE) {
-    		if(phoneBook.exactSearch( nameSearch.getText(), prefixSearch.getText() )!=null)
-    			outputText.append("Deletion of:"+nameSearch.getText()
-    								+" "+prefixSearch.getText()+" "+phoneBook.exactSearch( nameSearch.getText(), prefixSearch.getText() ));
-    		outputText.setForeground(Color.RED);
-    	}
+	    		outputText.setForeground(Color.BLACK);
+	    	break;
+	    	
+	    	case EXACT_SEARCH:
+	    		outputText.append(phoneBook.exactSearch( nameSearch.getText(), prefixSearch.getText() ));
+	    		outputText.setForeground(Color.BLACK);
+    		break;
+    		
+	    	case DELETE:
+	            buttonDelete.setEnabled(true);
+	    		if(phoneBook.exactSearch( nameSearch.getText(), prefixSearch.getText() )!=null)
+	    			outputText.append("Deletion of:"+nameSearch.getText()+" "+prefixSearch.getText()
+	    			+" "+phoneBook.exactSearch( nameSearch.getText(), prefixSearch.getText() ));
+	    		outputText.setForeground(Color.RED);
+    	}	
     }
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==buttonApply&&comboBox.getSelectedIndex()==DELETE) {
+        if(e.getSource()==buttonDelete&&comboBox.getSelectedIndex()==DELETE) {
         	if(phoneBook.remove(nameSearch.getText(), prefixSearch.getText()))
-        		outputText.setText("deletion of: " + nameSearch.getText() + " " + prefixSearch.getText() + " successfull");
+        		outputText.setText("Deletion of: " + nameSearch.getText() + " " + prefixSearch.getText() + " SUCCESSFULL!");
         }
     }
 }

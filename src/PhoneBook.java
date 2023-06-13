@@ -87,7 +87,7 @@ public class PhoneBook {
         throws FileNotFoundException, IOException {
         
     	PhoneBook phoneBook = new PhoneBook();
-        phoneBook.read(new File("TelBuchMit420Namen.txt"));
+        phoneBook.read(new File("PhoneBookWith420Names.txt"));
 
         System.out.println(phoneBook.exactSearch("Oliver",""));
         System.out.println();

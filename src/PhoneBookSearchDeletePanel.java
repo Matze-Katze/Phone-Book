@@ -49,7 +49,7 @@ public class PhoneBookSearchDeletePanel
         searchPanel.add(panel2);
         String[] comboString= {"Exact Search","Prefix-Search","Delete"};
         comboBox=new JComboBox(comboString);
-        comboBox.addActionListener((ActionEvent e)->updateOutput());
+        comboBox.addActionListener(e->updateOutput());
         searchPanel.add(comboBox);
         buttonDelete = new JButton("Delete");
         searchPanel.add(buttonDelete);

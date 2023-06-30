@@ -66,10 +66,10 @@ public class PhoneBookMenuBar extends JMenuBar implements ActionListener {
         	JPanel panel=new JPanel();
         	JButton yesButton=new JButton("yes");
         	JButton noButton=new JButton("no");
-        	yesButton.addActionListener((ActionEvent event)->
+        	yesButton.addActionListener(event->
         		PhoneBookGUI.getInstance().dispatchEvent(new WindowEvent(quitDialog, WindowEvent.WINDOW_CLOSING))
         		);
-        	noButton.addActionListener((ActionEvent event)->
+        	noButton.addActionListener(event->
         		quitDialog.dispatchEvent(new WindowEvent(quitDialog, WindowEvent.WINDOW_CLOSING))
         			);
         	panel.add(noButton);
